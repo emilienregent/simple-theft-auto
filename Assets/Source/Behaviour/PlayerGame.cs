@@ -111,7 +111,7 @@ namespace Simple.Behaviour
             }
             else if (_currentWeaponType != WeaponType.NONE)
             {
-                if (currentWeapon.ammo > 0)
+                if (currentWeapon.ammoInClip > 0)
                 {
                     if (_isShooting == false)
                     {
@@ -134,23 +134,35 @@ namespace Simple.Behaviour
         {
             if (_weapons.ContainsKey(weapon.type) == false)
             {
+				weapon.ammoInClip = weapon.ammoByClip;
+
                 _weapons.Add(weapon.type, weapon);
 
-                EquipWeapon(weapon.type);
+				EquipWeapon(weapon.type);
             }
             else
             {
-                _weapons[weapon.type].ammo += weapon.ammo;
+                _weapons[weapon.type].ammo += weapon.ammoByClip;
             }
 
             UpdateGUIWeaponAmmo();
         }
 
+		public void ConsumeAmmo()
+		{
+			if (--currentWeapon.ammoInClip <= 0)
+			{
+				Shoot(false);
+			}
+
+			UpdateGUIWeaponAmmo();
+		}
+
         public void UpdateGUIWeaponAmmo()
         {
             Text weaponAmmoCount = GUIManager.instance.GetUniqueTextForPlayer(this, UniqueTextType.WEAPON_AMMO_COUNT);
 
-            weaponAmmoCount.text = currentWeapon.ammo.ToString();
+			weaponAmmoCount.text = string.Format("{0}|{1}", currentWeapon.ammoInClip, currentWeapon.ammo);
         }
 
         private void EquipWeapon(WeaponType type)

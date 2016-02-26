@@ -94,7 +94,7 @@ namespace Simple.Behaviour
             {
                 PlayerGame player = other.GetComponent<PlayerGame>();
 
-               if(player != null)
+               if(player != null && player)
 				{
 					GrabWeapon(player);
 				}
