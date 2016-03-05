@@ -18,6 +18,8 @@ namespace Simple.CustomType
         TRIGGER_RIGHT,
         TRIGGER_BTN_RIGHT,
         START,
-        SELECT
+        SELECT,
+        PREVIOUS,
+        NEXT
     }
 }

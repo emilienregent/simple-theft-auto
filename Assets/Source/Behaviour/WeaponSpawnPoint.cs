@@ -54,11 +54,6 @@ namespace Simple.Behaviour
                 prefab = _weapons[Random.Range(0, _weapons.Length)];
             }
 
-            if (_body != null)
-            {
-                GameObject.Destroy(_body);
-            }
-
             _body = GameObject.Instantiate(prefab);
 
             _body.transform.position = transform.position;
@@ -76,8 +71,6 @@ namespace Simple.Behaviour
 		private void GrabWeapon(PlayerGame player)
 		{
 			player.AddWeapon(_weapon);
-
-			GameObject.Destroy(_body);
 
 			_body = null;
 			_weapon = null;

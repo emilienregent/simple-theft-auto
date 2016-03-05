@@ -114,6 +114,12 @@ namespace Simple.Service
                 _playerService.ExecuteInputFromSource(InputType.TRIGGER_LEFT, source, InputState.PRESSED);
             else if (Input.GetButtonUp("Fire2"))
                 _playerService.ExecuteInputFromSource(InputType.TRIGGER_LEFT, source, InputState.RELEASED);
+
+            if (Input.GetButtonUp("Previous"))
+                _playerService.ExecuteInputFromSource(InputType.PREVIOUS, source, InputState.RELEASED);
+
+            if (Input.GetButtonUp("Next"))
+                _playerService.ExecuteInputFromSource(InputType.NEXT, source, InputState.RELEASED);
         }
 	}
 }

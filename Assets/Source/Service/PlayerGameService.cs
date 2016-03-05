@@ -91,6 +91,12 @@ namespace Simple.Service
                     case InputType.TRIGGER_RIGHT: 
                         player.Shoot(false);
                         break;
+                    case InputType.PREVIOUS: 
+                        player.ChangeWeapon(false);
+                        break;
+                    case InputType.NEXT: 
+                        player.ChangeWeapon(true);
+                        break;
                 }
             }
         }

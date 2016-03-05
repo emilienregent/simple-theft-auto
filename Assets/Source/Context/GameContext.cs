@@ -14,8 +14,11 @@ namespace Simple.Context
         private GameObject _canvasPrefab = null;
         [SerializeField]
         private GameObject[] _characters = new GameObject[0];
+        [SerializeField]
+        private GameObject[] _weapons = new GameObject[0];
 
         private Dictionary<CharacterType, Character> _typeToPlayableCharacter = new Dictionary<CharacterType, Character>();
+        private Dictionary<WeaponType, Weapon> _typeToPlayableWeapon = new Dictionary<WeaponType, Weapon>();
 
         public GameObject playerPrefab { get { return _playerPrefab; } }
         public GameObject canvasPrefab { get { return _canvasPrefab; } }
@@ -30,6 +33,16 @@ namespace Simple.Context
                 if (_typeToPlayableCharacter.ContainsKey(character.type) == false)
                 {
                     _typeToPlayableCharacter.Add(character.type, character);
+                }
+            }
+
+            for (int i = 0; i < _weapons.Length; i++)
+            {
+                Weapon weapon = _weapons[i].GetComponent<Weapon>();
+
+                if (_typeToPlayableWeapon.ContainsKey(weapon.type) == false)
+                {
+                    _typeToPlayableWeapon.Add(weapon.type, weapon);
                 }
             }
         }

@@ -134,9 +134,11 @@ namespace Simple.Behaviour
         {
             if (_weapons.ContainsKey(weapon.type) == false)
             {
-				weapon.ammoInClip = weapon.ammoByClip;
-
                 _weapons.Add(weapon.type, weapon);
+
+                weapon.ammoInClip = weapon.ammoByClip;
+                weapon.prefab.transform.rotation = WeaponAnimation.INITIAL_ROTATION;
+                weapon.prefab.transform.SetParent(_weaponRoot, false);
 
 				EquipWeapon(weapon.type);
             }
@@ -169,21 +171,36 @@ namespace Simple.Behaviour
         {
             if (_weapons.ContainsKey(type) == true)
             {
-                _currentWeaponType = type;
-
-                if (_weaponRoot.childCount > 0)
+                if (currentWeapon != null)
                 {
-                    Transform child = _weaponRoot.GetChild(0);
-
-                    GameObject.Destroy(child.gameObject);
+                    currentWeapon.prefab.SetActive(false);
                 }
 
-                GameObject weaponGO = GameObject.Instantiate<GameObject>(currentWeapon.prefab);
+                _currentWeaponType = type;
 
-                weaponGO.transform.rotation = WeaponAnimation.INITIAL_ROTATION;
-                weaponGO.transform.SetParent(_weaponRoot, false);
+                UnityEngine.Debug.Log(currentWeapon.prefab);
+
+
+                currentWeapon.prefab.SetActive(true);
 
                 _animator.SetInteger(WeaponAnimation.TYPE, (int)_currentWeaponType);
+
+                UpdateGUIWeaponAmmo();
+            }
+        }
+
+        public void ChangeWeapon(bool toNext)
+        {
+            if (_weapons.Count > 1)
+            {
+                WeaponType type = _currentWeaponType;
+
+                while (type == _currentWeaponType || _weapons.ContainsKey(type) == false)
+                {
+                    type = toNext == true ? type.Next() : type.Previous();
+                }
+
+                EquipWeapon(type);
             }
         }
 
