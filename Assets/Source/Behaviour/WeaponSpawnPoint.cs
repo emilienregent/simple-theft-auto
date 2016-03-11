@@ -70,12 +70,15 @@ namespace Simple.Behaviour
 		/// <param name="player">The player who grabbed the weapon</param>
 		private void GrabWeapon(PlayerGame player)
 		{
-			player.AddWeapon(_weapon);
+            if (player.AddWeapon(_weapon) == true)
+			{
+				player.AddWeapon(_weapon);
 
-			_body = null;
-			_weapon = null;
+				_body = null;
+				_weapon = null;
 
-			_timer = new Timer(_cooldown);
+				_timer = new Timer(_cooldown);
+			}
 		}
 
 		/// <summary>

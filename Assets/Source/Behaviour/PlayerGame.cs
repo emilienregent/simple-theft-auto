@@ -125,13 +125,16 @@ namespace Simple.Behaviour
                 }
                 else
                 {
+					// TODO : Play empty weapon sound here
                     UnityEngine.Debug.Log("Reload !");
                 }
             }
         }
 
-        public void AddWeapon(Weapon weapon)
+        public bool AddWeapon(Weapon weapon)
         {
+			bool weaponAdded = true;
+
             if (_weapons.ContainsKey(weapon.type) == false)
             {
                 _weapons.Add(weapon.type, weapon);
@@ -142,12 +145,18 @@ namespace Simple.Behaviour
 
 				EquipWeapon(weapon.type);
             }
-            else
+            else if(_weapons[weapon.type].ammo + weapon.ammoByClip <= weapon.ammoMax)
             {
                 _weapons[weapon.type].ammo += weapon.ammoByClip;
             }
+			else
+			{
+				weaponAdded = false;
+			}
 
             UpdateGUIWeaponAmmo();
+
+			return weaponAdded;
         }
 
 		public void ConsumeAmmo()
