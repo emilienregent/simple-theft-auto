@@ -8,6 +8,11 @@ public class CharacterAnimation : MonoBehaviour
 
     public void Shoot()
     {
-		player.ConsumeAmmo();
+		player.ShootEndedHandler();
     }
+
+	public void Reload()
+	{
+		player.ReloadEndedHandler();
+	}
 }

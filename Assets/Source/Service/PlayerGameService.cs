@@ -97,6 +97,9 @@ namespace Simple.Service
                     case InputType.NEXT: 
                         player.ChangeWeapon(true);
                         break;
+					case InputType.RELOAD:
+						player.Reload();
+						break;
                 }
             }
         }

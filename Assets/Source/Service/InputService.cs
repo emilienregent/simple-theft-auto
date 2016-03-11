@@ -120,6 +120,9 @@ namespace Simple.Service
 
             if (Input.GetButtonUp("Next"))
                 _playerService.ExecuteInputFromSource(InputType.NEXT, source, InputState.RELEASED);
+
+			if (Input.GetButtonUp("Reload"))
+				_playerService.ExecuteInputFromSource(InputType.RELOAD, source, InputState.RELEASED);
         }
 	}
 }

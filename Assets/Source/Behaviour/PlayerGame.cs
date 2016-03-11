@@ -159,7 +159,7 @@ namespace Simple.Behaviour
 			return weaponAdded;
         }
 
-		public void ConsumeAmmo()
+		public void ShootEndedHandler()
 		{
 			if (--currentWeapon.ammoInClip <= 0)
 			{
@@ -189,7 +189,6 @@ namespace Simple.Behaviour
 
                 UnityEngine.Debug.Log(currentWeapon.prefab);
 
-
                 currentWeapon.prefab.SetActive(true);
 
                 _animator.SetInteger(WeaponAnimation.TYPE, (int)_currentWeaponType);
@@ -212,6 +211,26 @@ namespace Simple.Behaviour
                 EquipWeapon(type);
             }
         }
+
+		public void Reload()
+		{
+			if (currentWeapon != null && currentWeapon.ammo > 0 && currentWeapon.ammoInClip < currentWeapon.ammoByClip)
+			{
+				_animator.SetBool(WeaponAnimation.RELOAD, true);
+			}
+		}
+
+		public void ReloadEndedHandler()
+		{
+			int delta = Mathf.Min(currentWeapon.ammoByClip - currentWeapon.ammoInClip, currentWeapon.ammo);
+
+			currentWeapon.ammo -= delta;
+			currentWeapon.ammoInClip += delta;
+
+			UpdateGUIWeaponAmmo();
+
+			_animator.SetBool(WeaponAnimation.RELOAD, false);
+		}
 
         private void FixedUpdate()
         {

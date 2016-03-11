@@ -20,6 +20,7 @@ namespace Simple.CustomType
         START,
         SELECT,
         PREVIOUS,
-        NEXT
+        NEXT,
+		RELOAD
     }
 }
